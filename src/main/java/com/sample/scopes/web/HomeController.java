@@ -16,6 +16,10 @@ public class HomeController {
 	private ValueBean sessionScopedBean;
 
 	@Autowired
+	@Qualifier("windowScopedBean")
+	private ValueBean windowScopedBean;
+
+	@Autowired
 	@Qualifier("requestScopedBean")
 	private ValueBean requestScopedBean;
 
@@ -24,6 +28,7 @@ public class HomeController {
 		HomeCommand command = new HomeCommand();
 		command.setSessionScopedValue(sessionScopedBean.getValue());
 		command.setRequestScopedValue(requestScopedBean.getValue());
+		command.setWindowScopedValue(windowScopedBean.getValue());
 
 		model.addAttribute("command", command);
 
@@ -34,6 +39,7 @@ public class HomeController {
 	public String update(HomeCommand command) {
 		sessionScopedBean.setValue(command.sessionScopedValue);
 		requestScopedBean.setValue(command.requestScopedValue);
+		windowScopedBean.setValue(command.windowScopedValue);
 
 		return "redirect:/";
 	}
@@ -43,9 +49,9 @@ public class HomeController {
 class HomeCommand {
 	String sessionScopedValue;
 	String requestScopedValue;
+	String windowScopedValue;
 
 	public HomeCommand() {
-
 	}
 
 	public String getSessionScopedValue() {
@@ -62,5 +68,13 @@ class HomeCommand {
 
 	public void setRequestScopedValue(String requestScopedValue) {
 		this.requestScopedValue = requestScopedValue;
+	}
+
+	public String getWindowScopedValue() {
+		return windowScopedValue;
+	}
+
+	public void setWindowScopedValue(String windowScopedValue) {
+		this.windowScopedValue = windowScopedValue;
 	}
 }
