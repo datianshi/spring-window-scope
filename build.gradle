@@ -1,0 +1,44 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+apply plugin: 'jetty'
+apply plugin: 'war'
+
+sourceCompatibility = 1.6
+version = '1.0'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+            srcDir 'src/main/java'
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Spring Window Scope', 'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring and dependencies
+    compile "org.springframework:spring-context:${springVersion}"
+    compile "org.springframework:spring-webmvc:${springVersion}"
+    compile 'cglib:cglib:2.2.2'
+
+    // Servlet
+    providedCompile "javax.servlet:javax.servlet-api:3.0.1"
+
+    // Testing
+    testCompile "org.springframework:spring-test:${springTestVersion}"
+    testCompile 'junit:junit:4.8.2'
+}
