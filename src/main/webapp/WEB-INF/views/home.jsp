@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page session="false" %>
 <html>
 <head>
@@ -10,25 +11,27 @@
 	Hello world!  
 </h1>
 
-<p>${command}</p>
-<%--<p> The value of the session scoped bean is ${command.sessionScopedValue}. </p>--%>
-<%--<p> The value of the request scoped bean is ${command.requestScopedValue}. </p>--%>
-<%--<p> The value of the request scoped bean is ${command.windowScopedValue}. </p>--%>
+<p>Window ID: ${org.springframework.web.context.request.WindowScopeRequestAttributes.WINDOW_ID}</p>
 
-<spring:form action="/" modelAttribute="command" method="POST">
+<form:form action="/" modelAttribute="command" method="POST">
+	<input type="hidden" id="wid" name="wid" value="${org.springframework.web.context.request.WindowScopeRequestAttributes.WINDOW_ID}"/>
+
 	<label for="sessionScopedValue">Session scope:</label>
-	<spring:input id="sessionScopedValue" path="sessionScopedValue" />
+	<form:input id="sessionScopedValue" path="sessionScopedValue" />
+	<br/>
+
+	<label for="windowScopedValue">Window scope:</label>
+	<form:input id="windowScopedValue" path="windowScopedValue"/>
 	<br/>
 
 	<label for="requestScopedValue">Request scope:</label>
-	<spring:input id="requestScopedValue" path="requestScopedValue"/>
+	<form:input id="requestScopedValue" path="requestScopedValue"/>
 	<br/>
 
-	<label for="windowScopedValue">Request scope:</label>
-	<spring:input id="windowScopedValue" path="windowScopedValue"/>
-	<br/>
+	<form:button id="submit" value="Submit">Submit</form:button>
 
-	<spring:button id="submit" value="Submit">Submit</spring:button>
-</spring:form>
+	<spring:url value="/" var="home"/>
+	<a href="${home}">Refresh</a>
+</form:form>
 </body>
 </html>

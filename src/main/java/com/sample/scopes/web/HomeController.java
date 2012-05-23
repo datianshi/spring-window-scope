@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
@@ -27,8 +26,8 @@ public class HomeController {
 	public String show(Model model) {
 		HomeCommand command = new HomeCommand();
 		command.setSessionScopedValue(sessionScopedBean.getValue());
-		command.setRequestScopedValue(requestScopedBean.getValue());
 		command.setWindowScopedValue(windowScopedBean.getValue());
+		command.setRequestScopedValue(requestScopedBean.getValue());
 
 		model.addAttribute("command", command);
 
@@ -38,12 +37,11 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String update(HomeCommand command) {
 		sessionScopedBean.setValue(command.sessionScopedValue);
-		requestScopedBean.setValue(command.requestScopedValue);
 		windowScopedBean.setValue(command.windowScopedValue);
+		requestScopedBean.setValue(command.requestScopedValue);
 
 		return "redirect:/";
 	}
-
 }
 
 class HomeCommand {
