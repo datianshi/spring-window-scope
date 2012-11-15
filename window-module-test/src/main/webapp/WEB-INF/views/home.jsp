@@ -13,7 +13,7 @@
 
 <p>Window ID: ${org.springframework.web.context.request.WindowScopeRequestAttributes.WINDOW_ID}</p>
 
-<form:form action="/" modelAttribute="command" method="POST">
+<form:form  modelAttribute="command" method="POST">
 	<input type="hidden" id="wid" name="wid" value="${org.springframework.web.context.request.WindowScopeRequestAttributes.WINDOW_ID}"/>
 
 	<label for="sessionScopedValue">Session scope:</label>
